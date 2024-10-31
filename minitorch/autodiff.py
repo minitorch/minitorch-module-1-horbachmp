@@ -22,8 +22,12 @@ def central_difference(f: Any, *vals: Any, arg: int = 0, epsilon: float = 1e-6) 
     Returns:
         An approximation of $f'_i(x_0, \ldots, x_{n-1})$
     """
-    # TODO: Implement for Task 1.1.
-    raise NotImplementedError("Need to implement for Task 1.1")
+    vals1 = list(vals)
+    vals1[arg] += epsilon
+
+    vals2 = list(vals)
+    vals2[arg] -= epsilon
+    return (f(*vals1) - f(*vals2)) / (2 * epsilon)
 
 
 variable_count = 1
@@ -61,8 +65,7 @@ def topological_sort(variable: Variable) -> Iterable[Variable]:
     Returns:
         Non-constant Variables in topological order starting from the right.
     """
-    # TODO: Implement for Task 1.4.
-    raise NotImplementedError("Need to implement for Task 1.4")
+    print(variable)
 
 
 def backpropagate(variable: Variable, deriv: Any) -> None:
