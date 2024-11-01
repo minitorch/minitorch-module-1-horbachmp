@@ -101,43 +101,43 @@ def test_chain_rule4() -> None:
 # Main tests are in test_scalar.py
 
 
-# @pytest.mark.task1_4
-# def test_backprop1() -> None:
-#     # Example 1: F1(0, v)
-#     var = minitorch.Scalar(0)
-#     var2 = Function1.apply(0, var)
-#     var2.backward(d_output=5)
-#     assert var.derivative == 5
+@pytest.mark.task1_4
+def test_backprop1() -> None:
+    # Example 1: F1(0, v)
+    var = minitorch.Scalar(0)
+    var2 = Function1.apply(0, var)
+    var2.backward(d_output=5)
+    assert var.derivative == 5
 
 
-# @pytest.mark.task1_4
-# def test_backprop2() -> None:
-#     # Example 2: F1(0, 0)
-#     var = minitorch.Scalar(0)
-#     var2 = Function1.apply(0, var)
-#     var3 = Function1.apply(0, var2)
-#     var3.backward(d_output=5)
-#     assert var.derivative == 5
+@pytest.mark.task1_4
+def test_backprop2() -> None:
+    # Example 2: F1(0, 0)
+    var = minitorch.Scalar(0)
+    var2 = Function1.apply(0, var)
+    var3 = Function1.apply(0, var2)
+    var3.backward(d_output=5)
+    assert var.derivative == 5
 
 
-# @pytest.mark.task1_4
-# def test_backprop3() -> None:
-#     # Example 3: F1(F1(0, v1), F1(0, v1))
-#     var1 = minitorch.Scalar(0)
-#     var2 = Function1.apply(0, var1)
-#     var3 = Function1.apply(0, var1)
-#     var4 = Function1.apply(var2, var3)
-#     var4.backward(d_output=5)
-#     assert var1.derivative == 10
+@pytest.mark.task1_4
+def test_backprop3() -> None:
+    # Example 3: F1(F1(0, v1), F1(0, v1))
+    var1 = minitorch.Scalar(0)
+    var2 = Function1.apply(0, var1)
+    var3 = Function1.apply(0, var1)
+    var4 = Function1.apply(var2, var3)
+    var4.backward(d_output=5)
+    assert var1.derivative == 10
 
 
-# @pytest.mark.task1_4
-# def test_backprop4() -> None:
-#     # Example 4: F1(F1(0, v1), F1(0, v1))
-#     var0 = minitorch.Scalar(0)
-#     var1 = Function1.apply(0, var0)
-#     var2 = Function1.apply(0, var1)
-#     var3 = Function1.apply(0, var1)
-#     var4 = Function1.apply(var2, var3)
-#     var4.backward(d_output=5)
-#     assert var0.derivative == 10
+@pytest.mark.task1_4
+def test_backprop4() -> None:
+    # Example 4: F1(F1(0, v1), F1(0, v1))
+    var0 = minitorch.Scalar(0)
+    var1 = Function1.apply(0, var0)
+    var2 = Function1.apply(0, var1)
+    var3 = Function1.apply(0, var1)
+    var4 = Function1.apply(var2, var3)
+    var4.backward(d_output=5)
+    assert var0.derivative == 10

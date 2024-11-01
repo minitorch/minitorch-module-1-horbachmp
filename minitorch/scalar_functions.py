@@ -195,7 +195,6 @@ class LT(ScalarFunction):
     def backward(ctx: Context, d_output: float) -> Tuple[float, float]:
         # (ans, ) = ctx.saved_values
         return 0
-    
 
 
 class EQ(ScalarFunction):

@@ -164,7 +164,6 @@ class Scalar:
         assert h.ctx is not None
 
         gradients = h.last_fn._backward(h.ctx, d_output)
-        
         ans = []
         for parent, gradient in zip(h.inputs, gradients):
             ans.append((parent, gradient))
