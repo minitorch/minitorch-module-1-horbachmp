@@ -65,7 +65,19 @@ def topological_sort(variable: Variable) -> Iterable[Variable]:
     Returns:
         Non-constant Variables in topological order starting from the right.
     """
-    print(variable)
+    order = []
+    visited = set()
+
+    def visit(var):
+        if var.unique_id not in visited:
+            visited.add(var.unique_id)
+            for parent in var.parents:
+                visit(parent)
+            order.append(var)
+    
+    visit(variable)
+
+    return order[::-1]
 
 
 def backpropagate(variable: Variable, deriv: Any) -> None:
@@ -79,9 +91,34 @@ def backpropagate(variable: Variable, deriv: Any) -> None:
 
     No return. Should write to its results to the derivative values of each leaf through `accumulate_derivative`.
     """
-    # TODO: Implement for Task 1.4.
-    raise NotImplementedError("Need to implement for Task 1.4")
 
+    if variable.is_constant():
+        return
+
+    order = topological_sort(variable)
+    print(order)
+    for var in order:
+        print(var.unique_id, var.is_leaf())
+    print("------------------")
+    derivs = {variable.unique_id: deriv}
+    vars = {variable.unique_id: variable}
+
+    for var in order:
+        if var.unique_id not in derivs:
+                derivs[var.unique_id] = 0
+        print("var", var.unique_id)
+        if var.is_leaf():
+            print("is_leaf", derivs)
+            
+            var.accumulate_derivative(derivs[var.unique_id])
+        else:
+            for parent, deriv_parent in var.chain_rule(derivs[var.unique_id]):
+                print("parent", parent.unique_id, parent.is_constant())
+                if parent.unique_id in derivs:
+                    derivs[parent.unique_id] += deriv_parent
+                else:
+                    vars[parent.unique_id] = parent
+                    derivs[parent.unique_id] = deriv_parent
 
 @dataclass
 class Context:
